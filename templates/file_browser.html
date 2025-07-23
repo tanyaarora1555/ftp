@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sleek File Browser</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f5f7fa;
+            --card-bg: #ffffff;
+            --border-color: #e0e6ed;
+            --text-color: #333;
+            --secondary-text-color: #666;
+            --primary-color: #007bff;
+            --primary-hover: #0056b3;
+            --shadow-light: rgba(0, 0, 0, 0.05);
+            --shadow-medium: rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .file-browser-container {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px var(--shadow-light);
+            padding: 30px;
+            width: 100%;
+            max-width: 800px;
+            box-sizing: border-box;
+            border: 1px solid var(--border-color);
+        }
+
+        h2 {
+            font-size: 1.8em;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .current-path {
+            font-size: 1.1em;
+            color: var(--secondary-text-color);
+            margin-bottom: 20px;
+            padding: 10px 15px;
+            background-color: #f0f4f7;
+            border-radius: 8px;
+            border: 1px solid #dcdfe4;
+            display: flex;
+            align-items: center;
+        }
+
+        .current-path strong {
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        .file-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .file-list li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        .file-list li:last-child {
+            border-bottom: none;
+        }
+
+        .file-list li:hover {
+            background-color: #f0f7ff;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px var(--shadow-light);
+            border-radius: 8px; /* Apply border-radius on hover for a subtle lift effect */
+            z-index: 1; /* Ensure shadow is visible over other items */
+        }
+        
+        .file-item-name {
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            font-size: 1em;
+            font-weight: 400;
+        }
+
+        .file-item-name .icon {
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+
+        .file-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        form {
+            display: inline-flex; /* Use flex for button alignment within forms */
+            margin: 0;
+            padding: 0;
+        }
+
+        button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 500;
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+            white-space: nowrap; /* Prevent button text from wrapping */
+        }
+
+        button.up-button {
+            background-color: #6c757d;
+            color: white;
+            padding: 10px 20px;
+            margin-bottom: 20px;
+            align-self: flex-start; /* Align "Up" button to the start */
+            border-radius: 8px;
+        }
+
+        button.up-button:hover {
+            background-color: #5a6268;
+            box-shadow: 0 2px 8px var(--shadow-medium);
+        }
+
+        button.folder-button {
+            background: none;
+            color: var(--primary-color);
+            padding: 0;
+            font-size: 1em; /* Match file item name font size */
+            text-align: left;
+            justify-content: flex-start;
+            border-radius: 0;
+        }
+
+        button.folder-button:hover {
+            color: var(--primary-hover);
+            text-decoration: underline;
+            background: none;
+            box-shadow: none;
+        }
+
+        button.download-button {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        button.download-button:hover {
+            background-color: var(--primary-hover);
+            box-shadow: 0 2px 8px var(--shadow-medium);
+        }
+
+        /* Icon styling */
+        .icon-folder::before { content: '📁'; margin-right: 8px; }
+        .icon-file::before { content: '📄'; margin-right: 8px; }
+    </style>
+</head>
+<body>
+    <div class="file-browser-container">
+        <h2>File Explorer</h2>
+        <p class="current-path">
+            Current Location: <strong>{{ current_folder or '/' }}</strong>
+        </p>
+
+        <ul class="file-list">
+            {% if current_folder %}
+                <li>
+                    <form method="POST" action="/list">
+                        <input type="hidden" name="folder" value="{{ current_folder.rsplit('/', 1)[0] }}">
+                        <button type="submit" class="up-button">[..] (Up)</button>
+                    </form>
+                </li>
+            {% endif %}
+
+            {% for file in files %}
+                <li>
+                    {% if file.is_dir %}
+                        <div class="file-item-name">
+                            <span class="icon icon-folder"></span>
+                            <form method="POST" action="/list" style="display:inline;">
+                                <input type="hidden" name="folder" value="{{ current_folder ~ '/' ~ file.name if current_folder else file.name }}">
+                                <button type="submit" class="folder-button">{{ file.name }}</button>
+                            </form>
+                        </div>
+                    {% else %}
+                        <div class="file-item-name">
+                            <span class="icon icon-file"></span>
+                            <span>{{ file.name }}</span>
+                        </div>
+                        <div class="file-actions">
+                            <form method="POST" action="/download">
+                                <input type="hidden" name="filename" value="{{ current_folder ~ '/' ~ file.name if current_folder else file.name }}">
+                                <button type="submit" class="download-button">Download</button>
+                            </form>
+                        </div>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

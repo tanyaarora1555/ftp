@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head><title>FTP Dashboard</title></head>
+<body>
+    <h2>Welcome to FTP Dashboard</h2>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>{% for message in messages %}<li>{{ message }}</li>{% endfor %}</ul>
+      {% endif %}
+    {% endwith %}
+
+    <h3>Upload File</h3>
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input type="submit" value="Upload">
+    </form>
+
+    <h3>Download File</h3>
+    <form action="/download" method="POST">
+        Filename: <input type="text" name="filename">
+        <input type="submit" value="Download">
+    </form>
+
+    <a href="/quit">Quit</a>
+</body>
+</html>
+
