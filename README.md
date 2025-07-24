@@ -45,7 +45,32 @@ gcc client.c -o client
 ```
 2. Run the app
 ```bash
-python3 app2.py
+python3 app.py
 ```
 # Usage
+1. Login:
+
+    * On the login page, enter the IP address, username, and password of the FTP server you want to connect to.
+
+    * Click the Connect button.
+
+    * A success popup will appear upon successful connection, and you'll be redirected to the dashboard. Your credentials will be stored in the session for subsequent operations.
+2. Dashboard Options:
+From the dashboard, you have three main options:
+
+    * Upload File to Server:
+
+        * Click the "Browse" button to select a file from your local system.
+
+        * Click the "Upload" button to transfer the selected file to the FTP server.
+
+    * Download File from Server:
+
+        * Direct Download: Enter the exact filename in the provided input field and click the "Download" button.
+
+        * Browse and Download: Browse the files and folders on the server (if this functionality is exposed on the dashboard) and click the "Download" button next to the desired file.
+
+   * Browse Files on Server:
+
+        * This option will display the contents of the current directory on the FTP server, letting you navigate through folders.
 
