@@ -43,6 +43,7 @@ This application uses a hybrid architecture:
 ```bash
 gcc client.c -o client
 ```
+Since the name of the backend is client we use this if the name is something else use that instaed of client
 2. Run the app
 ```bash
 python3 app.py
