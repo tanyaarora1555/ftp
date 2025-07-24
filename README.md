@@ -37,4 +37,15 @@ This application uses a hybrid architecture:
 * Python 3.x
 * Flask
 * A C compiler (e.g., GCC)
-  
+
+## How To Run
+1. Compile the C backend
+```bash
+gcc client.c -o client
+```
+2. Run the app
+```bash
+python3 app2.py
+```
+# Usage
+
