@@ -22,14 +22,14 @@ This application uses a hybrid architecture:
     * `connect_upload`: Handles file uploads.
     * `change directory`: Changes the current directory on the FTP server.
 ## Folder Structure
-``bash 
-├── templates/
-│   ├── login.html
-│   ├── dashboard.html
-│   └── file_browser.html
-├── app2.py
-├── client.c
-└── client (compiled C code)
+
+``bash ├── templates/
+│ ├── login.html
+│ ├── dashboard.html
+│ └── file_browser.html
+├── app2.py # Main Python application
+├── client.c # C source code for the client
+└── client # Compiled client binary
 ``
 # Getting Started
 ## Prerequisites
