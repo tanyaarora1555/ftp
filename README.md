@@ -21,3 +21,19 @@ This application uses a hybrid architecture:
     * `connect_download`: Handles file downloads.
     * `connect_upload`: Handles file uploads.
     * `change directory`: Changes the current directory on the FTP server.
+## Folder Structure
+``bash 
+├── templates/
+│   ├── login.html
+│   ├── dashboard.html
+│   └── file_browser.html
+├── app2.py
+├── client.c
+└── client (compiled C code)
+``
+# Getting Started
+## Prerequisites
+* Python 3.x
+* Flask
+* A C compiler (e.g., GCC)
+  
