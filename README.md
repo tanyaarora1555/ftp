@@ -30,7 +30,6 @@ This application uses a hybrid architecture:
 │ └── file_browser.html
 ├── app.py # Main Python application
 ├── client.c # C source code for the client
-└── client # Compiled client binary
 ```
 # Getting Started
 ## Prerequisites
