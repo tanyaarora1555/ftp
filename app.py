@@ -21,7 +21,7 @@ def login():
 
         try:
             result = subprocess.run(
-                ['./client_new', 'connect', ip, user, passwd],
+                ['./client', 'connect', ip, user, passwd],
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
                 text=True,
@@ -37,11 +37,11 @@ def login():
             flash(f"Error: {e}")
             return redirect('/')
 
-    return render_template('login_new.html')
+    return render_template('login.html')
 
 @app.route('/dashboard')
 def dashboard():
-    return render_template('dashboard_down.html')
+    return render_template('dashboard.html')
 
 @app.route('/upload', methods=['POST'])
 def upload():
@@ -59,7 +59,7 @@ def upload():
 
     try:
         result = subprocess.run(
-            ['./client_new', 'connect_upload', session['ip'], session['user'], session['pass'], filepath],
+            ['./client', 'connect_upload', session['ip'], session['user'], session['pass'], filepath],
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
             text=True,
@@ -84,7 +84,7 @@ def download():
 
     try:
         result = subprocess.run(
-            ['./client_new', 'connect_download', session['ip'], session['user'], session['pass'], filename],
+            ['./client', 'connect_download', session['ip'], session['user'], session['pass'], filename],
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
             text=True,
@@ -108,7 +108,7 @@ def list_files():
 
     try:
         result = subprocess.run(
-            ['./client_new', 'connect_list_folder', session['ip'], session['user'], session['pass'], folder],
+            ['./client', 'connect_list_folder', session['ip'], session['user'], session['pass'], folder],
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
             text=True,
