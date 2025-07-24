@@ -68,9 +68,7 @@ From the dashboard, you have three main options:
 
         * Direct Download: Enter the exact filename in the provided input field and click the "Download" button.
 
-        * Browse and Download: Browse the files and folders on the server (if this functionality is exposed on the dashboard) and click the "Download" button next to the desired file.
-
    * Browse Files on Server:
 
-        * This option will display the contents of the current directory on the FTP server, letting you navigate through folders.
+        * Browse and Download: Browse the files and folders on the server and click the "Download" button next to the desired file.
 
