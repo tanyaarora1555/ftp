@@ -28,7 +28,7 @@ This application uses a hybrid architecture:
 │ ├── login.html
 │ ├── dashboard.html
 │ └── file_browser.html
-├── app2.py # Main Python application
+├── app.py # Main Python application
 ├── client.c # C source code for the client
 └── client # Compiled client binary
 ```
