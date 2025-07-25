@@ -60,7 +60,7 @@ From the dashboard, you have three main options:
 
     * Upload File to Server:
 
-        * Click the "Browse" button to select a file from your local system.
+        * Click the "Choose File" button to select a file from your local system.
 
         * Click the "Upload" button to transfer the selected file to the FTP server.
 
